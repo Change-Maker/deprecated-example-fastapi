@@ -73,6 +73,14 @@ if settings.logger is not None:
     logger_util.setup_logger(settings.logger, True)
 ```
 
+## Todo List
+
+- [ ] Docker
+- [ ] Static client with Tailwind CSS
+- [ ] React client
+- [ ] React client with Headless UI
+- [ ] Angular client
+
 ## Troubleshooting
 
 - **isort sorts imports in wrong order.**
