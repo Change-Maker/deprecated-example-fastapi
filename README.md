@@ -73,9 +73,41 @@ if settings.logger is not None:
     logger_util.setup_logger(settings.logger, True)
 ```
 
+### 3.4 Docker
+
+The examples below use `example-fastapi-static` as the image name.
+
+#### 3.4.1 Static Client
+
+To build a Docker image:
+
+```bash
+docker build -t example-fastapi-static .
+```
+
+Run a container (the default port is `3000`):
+
+```bash
+docker run -p 3000:3000 -d example-fastapi-static
+```
+
+#### 3.4.2 Environment Only
+
+To build a Docker image that only contains environment:
+
+```bash
+docker build -t example-fastapi:env-only -f Dockerfile.env_only .
+```
+
+Run a container:
+
+```bash
+docker run -p 3000:3000 -v ./src:/ws/src -d example-fastapi:env-only
+```
+
 ## Todo List
 
-- [ ] Docker
+- [x] Docker
 - [ ] Static client with Tailwind CSS
 - [ ] React client
 - [ ] React client with Headless UI
