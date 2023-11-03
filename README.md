@@ -123,6 +123,89 @@ npx tailwindcss -i tailwind_input.css -o css/tailwind.css
 Afterwards, get into `src/fastapi_app` folder and run `python main.py`. Open
 browser and enter `http://localhost:3001/tailwindcss/`.
 
+### 3.6 React
+
+Get into `src/react_client` folder and install dependencies:
+
+```bash
+npm install
+```
+
+#### 3.6.1 Development mode
+
+First, add `proxy` option into `src/react_client/package.json` file:
+
+```jsonc
+{
+  // ...
+  "proxy": "http://localhost:3001"
+}
+```
+
+And start React app by running the following command in `src/react_client/`
+folder:
+
+```bash
+npm start
+```
+
+(If you encount any problem with command above, check [docs/react.md](./docs/react.md)
+for more information.)
+
+This proxy the request from the React app to FastAPI backend.
+
+Then get into `src/fastapi_app/` folder and start FastAPI backend:
+
+```bash
+MODE="dev" python main.py
+```
+
+Afterwards, open browser and enter `http://localhost:3000`.
+
+Run the following code in the browser console:
+
+```js
+fetch("/hello").then((res) => res.json()).then((data) => console.log(data));
+```
+
+It should receive `world` from the backend.
+
+#### 3.6.2 Build React app
+
+Since we mount the React app under `/react-client` path in `src/main.py`:
+
+```python
+app.mount(
+    "/react-client",
+    StaticFiles(directory=REACT_BUILD_DIR, html=True),
+    name="react_client",
+)
+```
+
+We need to add `homepage` option into `src/react_client/package.json` file:
+
+```jsonc
+{
+  // ...
+  "homepage": "/react-client"
+}
+```
+
+To build React app, run the following command in `src/react_client/` folder:
+
+```bash
+npm run build
+```
+
+Then run the following command in `src/fastapi_app/` folder:
+
+```bash
+python main.py
+```
+
+Now, the React app web page should be under
+`http://localhost:3001/react-client/` URL.
+
 ## Todo List
 
 - [x] Docker
