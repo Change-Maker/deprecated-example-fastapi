@@ -8,12 +8,15 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
 
-from routers import example, home
+from routers import example, home, tailwindcss
 from utils import config_util, logger_util
 
 WORKING_DIR = os.path.realpath(os.path.dirname(__file__))
 STATIC_CLIENT_DIR = os.path.realpath(
     os.path.join(WORKING_DIR, "../static_client"),
+)
+STATIC_CLIENT_TAILWINDCSS_DIR = os.path.realpath(
+    os.path.join(WORKING_DIR, "../static_client_tailwindcss"),
 )
 
 
@@ -29,7 +32,13 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(home.router)
 app.include_router(example.router)
+app.include_router(tailwindcss.router)
 
+app.mount(
+    "/tailwindcss",
+    StaticFiles(directory=STATIC_CLIENT_TAILWINDCSS_DIR),
+    name="tailwindcss",
+)
 app.mount(
     "/",
     StaticFiles(directory=STATIC_CLIENT_DIR, html=True),
