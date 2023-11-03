@@ -85,10 +85,10 @@ To build a Docker image:
 docker build -t example-fastapi-static .
 ```
 
-Run a container (the default port is `3000`):
+Run a container (the default port is `3001`):
 
 ```bash
-docker run -p 3000:3000 -d example-fastapi-static
+docker run -p 3001:3001 -d example-fastapi-static
 ```
 
 #### 3.4.2 Environment Only
@@ -102,7 +102,7 @@ docker build -t example-fastapi:env-only -f Dockerfile.env_only .
 Run a container:
 
 ```bash
-docker run -p 3000:3000 -v ./src:/ws/src -d example-fastapi:env-only
+docker run -p 3001:3001 -v ./src:/ws/src -d example-fastapi:env-only
 ```
 
 ### 3.5 Tailwind CSS
@@ -121,7 +121,7 @@ npx tailwindcss -i tailwind_input.css -o css/tailwind.css
 ```
 
 Afterwards, get into `src/fastapi_app` folder and run `python main.py`. Open
-browser and enter `http://localhost:3000/tailwindcss`.
+browser and enter `http://localhost:3001/tailwindcss/`.
 
 ## Todo List
 
