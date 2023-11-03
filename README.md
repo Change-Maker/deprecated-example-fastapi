@@ -105,10 +105,28 @@ Run a container:
 docker run -p 3000:3000 -v ./src:/ws/src -d example-fastapi:env-only
 ```
 
+### 3.5 Tailwind CSS
+
+Get into `src/static_client_tailwindcss` folder and install dependencies:
+
+```bash
+npm install
+```
+
+Run the following command in `src/static_client_tailwindcss` folder to generate
+Tailwind CSS file:
+
+```bash
+npx tailwindcss -i tailwind_input.css -o css/tailwind.css
+```
+
+Afterwards, get into `src/fastapi_app` folder and run `python main.py`. Open
+browser and enter `http://localhost:3000/tailwindcss`.
+
 ## Todo List
 
 - [x] Docker
-- [ ] Static client with Tailwind CSS
+- [x] Static client with Tailwind CSS
 - [ ] React client
 - [ ] React client with Headless UI
 - [ ] Angular client
