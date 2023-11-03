@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from loguru import logger
 
@@ -17,6 +18,9 @@ STATIC_CLIENT_DIR = os.path.realpath(
 )
 STATIC_CLIENT_TAILWINDCSS_DIR = os.path.realpath(
     os.path.join(WORKING_DIR, "../static_client_tailwindcss"),
+)
+REACT_BUILD_DIR = os.path.realpath(
+    os.path.join(WORKING_DIR, "../react_client/build"),
 )
 
 
@@ -32,6 +36,23 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(home.router)
 app.include_router(example.router)
+
+if os.environ.get("MODE") == "dev":
+    origins = ["http://localhost:3000"]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    # Serve static files.
+    app.mount(
+        "/react-client",
+        StaticFiles(directory=REACT_BUILD_DIR, html=True),
+        name="react_client",
+    )
 
 app.mount(
     "/tailwindcss",
