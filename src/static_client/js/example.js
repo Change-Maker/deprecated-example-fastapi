@@ -58,6 +58,18 @@ window.onload = function () {
   console.log('This is Example page.');
 
   // Setup buttons.
+  document.getElementById('get-orjson-resp').onclick = function () {
+    const url = '/example/orjson-resp';
+    axios
+      .get(url)
+      .then((resp) => {
+        console.log(`GET ${url}: response:`, resp);
+      })
+      .catch((err) => {
+        console.error(`Failed to GET ${url}:`, err);
+      });
+  };
+
   document.getElementById('post-user').onclick = function () {
     const url = '/example/user';
     const user = { name: 'alfa', age: 18, isVerified: true };

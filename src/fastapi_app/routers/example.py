@@ -3,7 +3,7 @@ import os
 
 import aiofiles
 from fastapi import APIRouter, File, UploadFile
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import HTMLResponse, ORJSONResponse, Response
 from loguru import logger
 from pydantic import BaseModel
 
@@ -54,6 +54,11 @@ class Result(BaseModel):
 async def example_page():
     async with aiofiles.open(_EXAMPLE_HTML_PATH, "r") as f:
         return HTMLResponse(content=await f.read(), status_code=200)
+
+
+@router.get("/orjson-resp")
+async def get_orjson_response() -> ORJSONResponse:
+    return ORJSONResponse({"a": "alfa", "b": "bravo", "c": "charlie"})
 
 
 @router.get("/users")
