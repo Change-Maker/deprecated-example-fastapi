@@ -220,7 +220,7 @@ cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in pro
 
 2. Setup VS Code default formatter for HTML files.
 
-    ```json
+    ```jsonc
     // settings.json
     {
       "[html]": {
