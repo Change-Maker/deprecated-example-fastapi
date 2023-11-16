@@ -1,4 +1,4 @@
-# FastAPI App Example
+# FastAPI App Example (Deprecated)
 
 ## 1. Requirements
 
